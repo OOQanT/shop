@@ -10,11 +10,15 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomLogoutFilter extends GenericFilterBean {
 
     private final JWTUtil jwtUtil;
@@ -22,10 +26,14 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
         doFilter((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, filterChain);
     }
 
     private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException{
+
+        log.info("cookie={}", request.getHeader("Set-Cookie"));
+
         //path and method verify
         String requestUri = request.getRequestURI();
         if (!requestUri.matches("^\\/logout$")) {
@@ -43,10 +51,14 @@ public class CustomLogoutFilter extends GenericFilterBean {
         //get refresh token
         String refresh = null;
         Cookie[] cookies = request.getCookies();
+        log.info("==================================================================================");
+        log.info("request = {}", request);
+        log.info("cookies = {}", cookies);
+
         for (Cookie cookie : cookies) {
 
             if (cookie.getName().equals("refresh")) {
-
+                log.info("ref cookie={}", cookie);
                 refresh = cookie.getValue();
             }
         }

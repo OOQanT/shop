@@ -1,9 +1,6 @@
 package image.upload.uploadtest.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import image.upload.uploadtest.dto.member.login.CustomUserDetails;
-import image.upload.uploadtest.dto.member.login.LoginFailResponse;
-import image.upload.uploadtest.entity.Member;
+
 import image.upload.uploadtest.entity.RefreshEntity;
 import image.upload.uploadtest.repository.member.MemberRepository;
 import image.upload.uploadtest.repository.refresh.RefreshRepository;
@@ -20,14 +17,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Optional;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -80,6 +77,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.addCookie(createCookie("refresh",refresh));
         response.setStatus(HttpStatus.OK.value());
 
+
         log.info("access token={}", access);
         log.info("==================================Login Success==================================");
     }
@@ -94,8 +92,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Cookie cookie = new Cookie(key,value);
         cookie.setMaxAge(24*60*60);
         //cookie.setSecure(true);
-        //cookie.setPath("/");
+        cookie.setPath("/");
+        //cookie.setDomain("localhost");
         cookie.setHttpOnly(true);
+
 
         return cookie;
     }
