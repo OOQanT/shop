@@ -216,6 +216,15 @@ public class ItemController {
 
     }
 
+    @GetMapping("/getItemsPaging")
+    public ResponseEntity<?> getItems_with_paging(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                  @RequestParam(value = "size", defaultValue = "10") int size,
+                                                  @RequestParam(value = "itemName", required = false) String itemName){
+        PageResponse<PageDto> findItems = itemService.findItemsPagingWithCondition(page, size, itemName);
+
+        return ResponseEntity.ok(findItems);
+    }
+
 
     private String getUsername(HttpServletRequest request){
         String token = request.getHeader("Authorization").split(" ")[1];

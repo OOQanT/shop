@@ -40,4 +40,11 @@ public class ItemRegisterRequest {
         this.price = price;
         this.quantity = quantity;
     }
+
+    public ItemRegisterRequest(String itemName, int price, int quantity, String description) {
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+    }
 }

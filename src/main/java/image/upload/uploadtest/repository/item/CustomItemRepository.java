@@ -10,4 +10,6 @@ public interface CustomItemRepository {
     List<GetItemsDto> findItemsByCondition(String itemName);
 
     List<Item> findByItemsByCondition(String itemName);
+
+    List<Item> findItemWithPagingByCondition(int page, int size, String itemName);
 }

@@ -99,7 +99,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth)-> auth
-                        .requestMatchers("/","/login","/loginProc","/join/**","/joinProc","/api/**","/token/**","/error","/board/images/**","/item/itemimages/**","/item/getItems/**","/reissue").permitAll()
+                        .requestMatchers("/","/login","/loginProc","/join/**","/joinProc","/api/**","/token/**","/error","/board/images/**","/item/itemimages/**","/item/getItems/**","/item/getItemsPaging/**","/reissue").permitAll()
                         .anyRequest().authenticated()
                 );
 

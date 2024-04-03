@@ -47,6 +47,17 @@ public class ItemRepositoryImpl implements CustomItemRepository{
         return fetch;
     }
 
+    @Override
+    public List<Item> findItemWithPagingByCondition(int page, int size, String itemName) {
+        return query
+                .select(item)
+                .from(item)
+                .offset((long) (page - 1) * size)
+                .limit(size)
+                .where(itemNameLike(itemName))
+                .fetch();
+    }
+
     private BooleanExpression itemNameLike(String itemName){
         return StringUtils.hasText(itemName) ? item.itemName.like("%" + itemName + "%") : null;
     }

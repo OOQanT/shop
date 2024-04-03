@@ -1,9 +1,6 @@
 package image.upload.uploadtest.service.item;
 
-import image.upload.uploadtest.dto.item.EditItemRequest;
-import image.upload.uploadtest.dto.item.GetItemsDto;
-import image.upload.uploadtest.dto.item.ItemInfoResponse;
-import image.upload.uploadtest.dto.item.ItemRegisterRequest;
+import image.upload.uploadtest.dto.item.*;
 import image.upload.uploadtest.entity.Item;
 import image.upload.uploadtest.entity.ItemImage;
 import image.upload.uploadtest.entity.Member;
@@ -165,5 +162,21 @@ public class ItemService {
 
         itemRepository.delete(findItem);
         return true;
+    }
+
+    public PageResponse<PageDto> findItemsPagingWithCondition(int page, int size, String itemName){
+        List<Item> findItems = itemRepository.findItemWithPagingByCondition(page, size, itemName);
+
+        long totalItems = itemRepository.count(); // 전체 아이템 수
+        int totalPages = (int) Math.ceil((double) totalItems /size);
+
+        List<PageDto> pageDtos = new ArrayList<>();
+
+        for (Item findItem : findItems) {
+            PageDto pageDto = new PageDto(findItem);
+            pageDtos.add(pageDto);
+        }
+
+        return new PageResponse<>(pageDtos,page,totalItems,totalPages);
     }
 }
