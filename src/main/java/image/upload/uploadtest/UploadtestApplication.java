@@ -5,6 +5,7 @@ import image.upload.uploadtest.dto.member.join.JoinRequest;
 import image.upload.uploadtest.entity.Member;
 import image.upload.uploadtest.repository.member.MemberRepository;
 import image.upload.uploadtest.service.item.ItemService;
+import image.upload.uploadtest.service.itemImage.ItemImageService;
 import image.upload.uploadtest.service.member.MemberService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class UploadtestApplication {
 
 	private final MemberService memberService;
 	private final ItemService itemService;
+	private final ItemImageService itemImageService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(UploadtestApplication.class, args);
@@ -36,5 +38,8 @@ public class UploadtestApplication {
 			ItemRegisterRequest itemRegisterRequest = new ItemRegisterRequest("item"+i,1000,100,"item"+1+"description");
 			itemService.save("user",itemRegisterRequest);
 		}
+
+
+
 	}
 }

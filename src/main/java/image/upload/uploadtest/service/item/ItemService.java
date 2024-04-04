@@ -167,13 +167,19 @@ public class ItemService {
     public PageResponse<PageDto> findItemsPagingWithCondition(int page, int size, String itemName){
         List<Item> findItems = itemRepository.findItemWithPagingByCondition(page, size, itemName);
 
-        long totalItems = itemRepository.count(); // 전체 아이템 수
-        int totalPages = (int) Math.ceil((double) totalItems /size);
+        long totalItems = itemRepository.countByItemNameLike(itemName); // 전체 아이템 수
+
+        int totalPages = (int) Math.ceil((double) totalItems /size); // 페이지 수
 
         List<PageDto> pageDtos = new ArrayList<>();
 
         for (Item findItem : findItems) {
             PageDto pageDto = new PageDto(findItem);
+            if(findItem.isFile()){
+                List<ItemImage> findImages = itemImageRepository.findByItemId(findItem.getId());
+                List<String> filenames = findImages.stream().map(ItemImage::getStoreFilename).toList();
+                pageDto.setImages(filenames);
+            }
             pageDtos.add(pageDto);
         }
 

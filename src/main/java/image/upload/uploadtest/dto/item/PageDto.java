@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,6 +20,8 @@ public class PageDto {
     private int price;
     private int quantity;
     private String description;
+    private List<String> storeFilename;
+
 
     public PageDto(Item item){
         this.id = item.getId();
@@ -26,6 +30,10 @@ public class PageDto {
         this.price = item.getPrice();
         this.quantity = item.getQuantity();
         this.description = item.getDescription();
+
     }
 
+    public void setImages(List<String> filenames) {
+        this.storeFilename = filenames;
+    }
 }
