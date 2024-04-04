@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -69,11 +70,20 @@ public class RefreshController {
 
             return new ResponseEntity<>(HttpStatus.OK);
 
-        }catch (NoSuchElementException e){
-            return new ResponseEntity<>("토큰 정보가 존재하지 않습니다",HttpStatus.BAD_REQUEST);
+        }catch (NoSuchElementException e) {
+            return new ResponseEntity<>("토큰 정보가 존재하지 않습니다", HttpStatus.BAD_REQUEST);
         }
+    }
 
-
+    @GetMapping("/api/token/validate")
+    public ResponseEntity<?> token_validate(HttpServletRequest request, HttpServletResponse response){
+        String accessToken = request.getHeader("access");
+        Boolean expired = jwtUtil.isExpired(accessToken);
+        if(!expired){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     private Cookie createCookie(String key, String value) {
