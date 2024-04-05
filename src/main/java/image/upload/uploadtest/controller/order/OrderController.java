@@ -67,7 +67,9 @@ public class OrderController {
     }
 
     private String getUsername(HttpServletRequest request){
-        String token = request.getHeader("Authorization").split(" ")[1];
+        //String token = request.getHeader("Authorization").split(" ")[1];
+
+        String token = request.getHeader("access");
         return jwtUtil.getUsername(token);
     }
 }

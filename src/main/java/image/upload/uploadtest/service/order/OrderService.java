@@ -37,6 +37,13 @@ public class OrderService {
         }
 
         List<OrderItem> orderItem = OrderItem.createOrderItem(findCart);
+        for (OrderItem item : orderItem) {
+            orderItemRepository.save(item);
+        }
+
+        for (Cart cart : findCart) {
+            cartRepository.delete(cart);
+        }
 
         Address address = new Address(createOrderRequest.getAddress(), createOrderRequest.getDetailAddress());
 
@@ -45,7 +52,7 @@ public class OrderService {
         if(createOrderRequest.getPayment().equals("카드")){
             order.setPayment(Payment.CARD);
         }else{
-            order.setPayment(Payment.BANK);
+            order.setPayment(Payment.CARD);
         }
 
         orderRepository.save(order);

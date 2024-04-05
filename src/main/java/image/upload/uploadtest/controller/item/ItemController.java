@@ -125,10 +125,10 @@ public class ItemController {
     }
 
     @GetMapping("/getItems/{itemId}")
-    public ResponseEntity<ItemInfoResponse> getItem(@PathVariable Long itemId){
+    public ResponseEntity<ItemInfoResponse> getItem(@PathVariable(name = "itemId") Long id){
 
         try{
-            ItemInfoResponse findItem = itemService.findItem(itemId);
+            ItemInfoResponse findItem = itemService.findItem(id);
             findItem.setMessage("성공");
             return ResponseEntity.status(HttpServletResponse.SC_OK)
                     .body(findItem);

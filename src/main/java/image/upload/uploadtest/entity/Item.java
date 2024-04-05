@@ -15,9 +15,12 @@ public class Item {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String itemName;
     private int price;
     private int quantity;
+
+    private String simpleDescription;
     private String description;
 
     private boolean isFile;
@@ -43,6 +46,8 @@ public class Item {
         this.quantity = quantity;
         this.description = description;
     }
+
+
 
     @QueryProjection
     public Item(Long id, String itemName, int price, int quantity, String description, boolean isFile) {

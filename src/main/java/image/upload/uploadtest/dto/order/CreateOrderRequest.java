@@ -10,7 +10,10 @@ public class CreateOrderRequest {
     private String detailAddress;
     private String payment;
 
-    public CreateOrderRequest(String address, String detailAddress,String payment) {
+    public CreateOrderRequest() {
+    }
+
+    public CreateOrderRequest(String address, String detailAddress, String payment) {
         this.address = address;
         this.detailAddress = detailAddress;
         this.payment = payment;

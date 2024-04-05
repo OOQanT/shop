@@ -69,7 +69,7 @@ public class CartController {
     }
 
     @DeleteMapping("/{cartId}/delete")
-    public ResponseEntity<DeleteCartResponse> delete(@PathVariable Long cartId, HttpServletRequest request){
+    public ResponseEntity<DeleteCartResponse> delete(@PathVariable(name = "cartId") Long cartId, HttpServletRequest request){
         String requestUsername = getUsername(request);
         try{
             cartService.delete(cartId,requestUsername);
@@ -93,7 +93,9 @@ public class CartController {
 
 
     private String getUsername(HttpServletRequest request){
-        String token = request.getHeader("Authorization").split(" ")[1];
-        return jwtUtil.getUsername(token);
+        //String token = request.getHeader("Authorization").split(" ")[1];
+
+        String access = request.getHeader("access");
+        return jwtUtil.getUsername(access);
     }
 }

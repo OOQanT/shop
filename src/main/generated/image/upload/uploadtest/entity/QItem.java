@@ -45,6 +45,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
 
+    public final StringPath simpleDescription = createString("simpleDescription");
+
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
     public QItem(String variable) {
